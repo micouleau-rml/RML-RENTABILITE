@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f62fe" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="RML Renta" />
+  <link rel="manifest" href="manifest.json" />
+  <title>RML Rentabilité Chantier</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">RML</div><div><h1>Rentabilité chantier</h1><p>Prévisionnel, réel, écarts et prix de vente</p></div></div>
+  <div class="actions"><button id="btnNew">Nouveau chantier</button><button id="btnSave">Sauvegarder</button><button id="btnExport">Exporter</button><label class="fileBtn">Importer<input id="importFile" type="file" accept="application/json" hidden></label><button onclick="window.print()">PDF / Imprimer</button></div>
+</header>
+<main class="layout">
+  <aside class="side"><h2>Chantiers</h2><div id="projectList"></div><button id="btnDuplicate" class="secondary">Dupliquer le chantier</button><button id="btnDelete" class="danger">Supprimer</button></aside>
+  <section class="content">
+    <div class="card grid2">
+      <label>Client<input id="client" placeholder="Nom du client"></label>
+      <label>Nom chantier<input id="chantier" placeholder="Nom du chantier"></label>
+      <label>Équipier 1<input id="eq1"></label><label>Équipier 2<input id="eq2"></label><label>Équipier 3<input id="eq3"></label><label>Équipier 4<input id="eq4"></label>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="tabs"><button class="tab active" data-tab="estime">Rentabilité estimée</button><button class="tab" data-tab="reel">Rentabilité réelle</button><button class="tab" data-tab="catalogue">Catalogue / réglages</button></div>
+    <section id="tab-estime" class="tabPane active"><div id="sections-estime"></div></section>
+    <section id="tab-reel" class="tabPane"><div id="sections-reel"></div></section>
+    <section id="tab-catalogue" class="tabPane"><div class="card"><h2>Réglages financiers</h2><div class="grid4"><label>Coût horaire vendu (€)<input id="coutVendu" type="number" step="0.01"></label><label>Frais généraux (% PV)<input id="fg" type="number" step="0.01"></label><label>Coef défaut<input id="coefDefault" type="number" step="0.01"></label><button id="btnSettings">Appliquer</button></div><p class="hint">Le prix de vente final applique le même principe que ton Excel : frais généraux calculés comme pourcentage du prix de vente, donc PV final = prix de revient / (1 - taux FG).</p></div><div class="card"><h2>Catalogue fournitures</h2><div class="toolbar"><input id="searchProduct" placeholder="Rechercher un produit"><button id="btnAddProduct">Ajouter un produit</button></div><div id="catalogueTable"></div></div></section>
+  </section>
+</main>
+<template id="rowTpl"><tr><td><select class="famille"></select></td><td><input class="designation" list="productList"></td><td><input class="fournisseur"></td><td><input class="qte" type="number" step="0.01"></td><td><input class="unite"></td><td><input class="fo" type="number" step="0.01"></td><td class="foTotal money"></td><td><input class="mo" type="number" step="0.01"></td><td class="moTotal"></td><td class="moEuro money"></td><td><input class="coef" type="number" step="0.01"></td><td class="prTotal money"></td><td class="pvTotal money"></td><td><button class="mini danger delRow">×</button></td></tr></template>
+<datalist id="productList"></datalist>
+<script src="data.js"></script><script src="app.js"></script>
+</body></html>
